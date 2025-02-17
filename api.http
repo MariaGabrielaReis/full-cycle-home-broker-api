@@ -42,3 +42,26 @@ Content-Type: application/json
   "assetId": "{{assetId}}",
   "shares": 21
 }
+
+### ORDERS REQUESTS
+
+# @name createOrder
+POST http://localhost:3000/orders
+Content-Type: application/json
+
+{
+  "walletId": "{{walletId}}",
+  "{{assetId}}": "{{{{assetId}}}}",
+  "shares": 21,
+  "type": "BUY",
+  "price": 100
+}
+
+###
+@orderId = {{ createOrder.response.body._id }}
+
+######################################
+GET http://localhost:3000/orders?walletId={{walletId}}
+
+######################################
+GET http://localhost:3000/orders/{{orderId}}
