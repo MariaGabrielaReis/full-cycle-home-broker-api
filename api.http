@@ -1,0 +1,15 @@
+POST http://localhost:3000/assets
+Content-Type: application/json
+
+{
+  "name": "Lifetime Investimentos",
+  "ticker": "LFTM3",
+  "price": 321,
+  "image": "LFTM.png"
+}
+
+######################################
+GET http://localhost:3000/assets 
+
+######################################
+GET http://localhost:3000/assets/LFTM3
