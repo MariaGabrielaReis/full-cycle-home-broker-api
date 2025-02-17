@@ -16,8 +16,8 @@ export class AssetsController {
     return this.assetsService.findAll();
   }
 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.assetsService.findOne(+id);
+  @Get(':ticker')
+  findOne(@Param('ticker') ticker: string) {
+    return this.assetsService.findOne(ticker);
   }
 }
