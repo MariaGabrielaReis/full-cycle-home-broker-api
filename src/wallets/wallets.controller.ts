@@ -1,5 +1,13 @@
-import { Body, Controller, Get, Param, Post } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  NotFoundException,
+  Param,
+  Post,
+} from '@nestjs/common';
 import { CreateWalletDto } from './dto/create-wallet.dto';
+import { WalletPresenter } from './wallets.presenter';
 import { WalletsService } from './wallets.service';
 
 @Controller('wallets')
@@ -9,6 +17,22 @@ export class WalletsController {
   @Post()
   create(@Body() createWalletDto: CreateWalletDto) {
     return this.walletsService.create(createWalletDto);
+  }
+
+  @Get()
+  findAll() {
+    return this.walletsService.findAll();
+  }
+
+  @Get(':id')
+  async findOne(@Param('id') id: string) {
+    const wallet = await this.walletsService.findOne(id);
+
+    if (!wallet) {
+      throw new NotFoundException('Wallet not found');
+    }
+
+    return new WalletPresenter(wallet);
   }
 
   @Post(':id/assets')
@@ -21,15 +45,5 @@ export class WalletsController {
       assetId: body.assetId,
       shares: body.shares,
     });
-  }
-
-  @Get()
-  findAll() {
-    return this.walletsService.findAll();
-  }
-
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.walletsService.findOne(id);
   }
 }
