@@ -1,41 +1,41 @@
 ### ASSETS REQUESTS
 
 # @name createAsset
-POST http://localhost:3000/assets
+POST http://localhost:3333/assets
 Content-Type: application/json
 
 {
-  "name": "Lifetime Investimentos",
-  "ticker": "LFTM3",
+  "name": "Amazon",
+  "ticker": "AMZN",
   "price": 321,
-  "image": "LFTM.png"
+  "image": "AMZN.png"
 }
 
 ###
 @assetId = {{ createAsset.response.body._id }}
 
 ######################################
-GET http://localhost:3000/assets 
+GET http://localhost:3333/assets 
 
 ######################################
-GET http://localhost:3000/assets/LFTM3
+GET http://localhost:3333/assets/AMZN
 
 ### WALLETS REQUESTS
 
 # @name createWallet
-POST http://localhost:3000/wallets
+POST http://localhost:3333/wallets
 
 ###
 @walletId = {{ createWallet.response.body._id }}
 
 ######################################
-GET http://localhost:3000/wallets 
+GET http://localhost:3333/wallets 
 
 ######################################
-GET http://localhost:3000/wallets/{{walletId}}
+GET http://localhost:3333/wallets/{{walletId}}
 
 ######################################
-POST http://localhost:3000/wallets/{{walletId}}/assets
+POST http://localhost:3333/wallets/{{walletId}}/assets
 Content-Type: application/json
 
 {
@@ -46,12 +46,12 @@ Content-Type: application/json
 ### ORDERS REQUESTS
 
 # @name createOrder
-POST http://localhost:3000/orders
+POST http://localhost:3333/orders
 Content-Type: application/json
 
 {
   "walletId": "{{walletId}}",
-  "{{assetId}}": "{{{{assetId}}}}",
+  "assetId": "{{assetId}}",
   "shares": 21,
   "type": "BUY",
   "price": 100
@@ -61,7 +61,7 @@ Content-Type: application/json
 @orderId = {{ createOrder.response.body._id }}
 
 ######################################
-GET http://localhost:3000/orders?walletId={{walletId}}
+GET http://localhost:3333/orders?walletId={{walletId}}
 
 ######################################
-GET http://localhost:3000/orders/{{orderId}}
+GET http://localhost:3333/orders/{{{{orderId}}}}
