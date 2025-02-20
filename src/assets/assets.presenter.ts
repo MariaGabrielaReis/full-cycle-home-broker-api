@@ -10,8 +10,6 @@ export class AssetPresenter {
       ticker: this.asset.ticker,
       price: this.asset.price,
       image_url: `http://localhost:9000/${this.asset.image}`,
-      createdAt: this.asset.createdAt,
-      updatedAt: this.asset.updatedAt,
     };
   }
 }
