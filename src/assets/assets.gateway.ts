@@ -6,6 +6,8 @@ import {
 } from '@nestjs/websockets';
 import { Server } from 'socket.io';
 
+import { AssetDailyPresenter } from './asset-dailies.presenter';
+import { AssetDailiesService } from './asset-dailies.service';
 import { AssetPresenter } from './assets.presenter';
 import { AssetsService } from './assets.service';
 
@@ -13,7 +15,10 @@ import { AssetsService } from './assets.service';
 export class AssetsGateway implements OnGatewayInit {
   logger = new Logger(AssetsGateway.name);
 
-  constructor(private assetsService: AssetsService) {}
+  constructor(
+    private assetsService: AssetsService,
+    private assetDailiesService: AssetDailiesService,
+  ) {}
 
   afterInit(server: Server) {
     this.assetsService.subscribeNewPriceChangedEvents().subscribe((asset) => {
@@ -21,6 +26,17 @@ export class AssetsGateway implements OnGatewayInit {
         .to(asset.ticker)
         .emit('assets/price-changed', new AssetPresenter(asset).toJSON());
     });
+
+    this.assetDailiesService
+      .subscribeCreatedEvents()
+      .subscribe((assetDaily) => {
+        server
+          .to(assetDaily.asset.ticker)
+          .emit(
+            'assets/daily-created',
+            new AssetDailyPresenter(assetDaily).toJSON(),
+          );
+      });
   }
 
   @SubscribeMessage('join-assets')
