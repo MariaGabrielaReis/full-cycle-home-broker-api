@@ -21,6 +21,8 @@
 > Websockets e change stram
 > ![image](https://github.com/user-attachments/assets/db55dfae-1ce6-4016-bcb6-25735528c4a5)
 
+> Integração com Apache Kafka
+> ![image](https://github.com/user-attachments/assets/ac79c3ab-5685-461f-bcb1-d0ad186ba101)
 
 ### Rotas
 - `/assets`: Consulta e criação dos ativos
